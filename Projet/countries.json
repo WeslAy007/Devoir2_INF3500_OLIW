@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Haiti",
+    "capital": "Port-au-Prince",
+    "population": 11402533,
+    "region": "Americas",
+    "currency": "Haitian Gourdes",
+    "languages": ["French", "Haitian Creole"],
+    "flags": {
+      "svg": "https://flagcdn.com/ht.svg",
+      "png": "https://flagcdn.com/w320/ht.png"
+    }
+  }
+]
