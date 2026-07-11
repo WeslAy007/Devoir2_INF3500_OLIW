@@ -1,7 +1,7 @@
-fetch(
-  'https://api.restcountries.com/v3.1/all',
-  { headers: { 'Authorization': 'Bearer rc_live_50c43f06b93445bc9ea8c914cbdbc47a' } }
+
+  fetch(
+  'https://api.restcountries.com/countries/v5?q=canada',
+  { headers: { 'Authorization': 'Bearer rc_live_61192c8f8c6d4bb69f716668bf5558ef' } }
 )
   .then(function (response) { return response.json(); })
-  .then(function (data) { console.log(data); })
-  .catch(function (error) { console.error('Error fetching countries:', error); });
+  .then(function (data) { console.log(data); });
