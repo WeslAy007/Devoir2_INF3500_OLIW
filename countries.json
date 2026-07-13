@@ -10,5 +10,17 @@
       "svg": "https://flagcdn.com/ht.svg",
       "png": "https://flagcdn.com/w320/ht.png"
     }
+  },
+{
+"name": "Canada",
+    "capital": "Ottawa",
+    "population": 38250000,
+    "region": "Americas",
+    "currency": "Canadian Dollar",
+    "languages": ["English", "French"],
+    "flags": {
+      "svg": "https://flagcdn.com",
+      "png": "https://flagcdn.com"
+    }
   }
 ]
