@@ -1,56 +1,318 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>World Atlas</title>
+
+    <title>Atlas Mondial Interactif</title>
+
+    <meta name="description" content="Recherchez un pays et consultez sa fiche géographique en temps réel.">
+
+
+    <!-- Google Fonts -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+
+    <!-- CSS -->
+
     <link rel="stylesheet" href="style.css">
+
 </head>
+
+
 <body>
 
-<header>
-    <h2>🌍 World Atlas</h2>
-    <div class="header-right">
-                <div class="search-bar">
-                    <input type="text" id="searchInput" placeholder="Rechercher...">
-                    <button type="button" id="searchBtn"><i class="fas fa-search">rechercher</i></button>
-                </div>
 
-    <nav>
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Countries</a></li>
-            <li><a href="#">Regions</a></li>
-            <li><a href="#">Map</a></li>
-            <li><a href="#">About</a></li>
-        </ul>
-    </nav>
+<!-- ================= HEADER ================= -->
+
+
+<header class="site-header">
+
+
+    <div class="header-inner">
+
+
+        <h1 class="site-title">
+            🌍 Atlas Mondial
+        </h1>
+
+
+
+        <nav class="site-nav" aria-label="Navigation principale">
+
+            <a href="#">Home</a>
+
+            <a href="#">Regions</a>
+
+            <a href="#">About</a>
+
+        </nav>
+
+
+
+
+        <!-- FORMULAIRE RECHERCHE -->
+
+        <form id="country-form" class="header-search" novalidate>
+
+
+            <input
+                type="text"
+                id="country-input"
+                name="country"
+                placeholder="Nom du pays..."
+                autocomplete="off"
+                aria-describedby="country-error"
+            >
+
+
+
+            <button type="submit" class="submit-btn">
+
+                🔍 Rechercher
+
+            </button>
+
+
+
+        </form>
+
+
+
     </div>
+
+
+
+    <p id="country-error"
+       class="error-message"
+       role="alert"
+       hidden>
+    </p>
+
+
+
 </header>
 
-<p><a href="#">← Back to Americas</a></p>
 
-<div class="card" id="card">
 
-    <div class="flag">
-        <img src="pictures/flag.svg" alt="Flag of Haiti">
+
+
+<!-- ================= MAIN ================= -->
+
+
+<main>
+
+
+
+
+    <!-- Chargement -->
+
+
+    <div id="loading"
+         class="loading"
+         role="status"
+         aria-live="polite"
+         hidden>
+
+
+        <span class="spinner"></span>
+
+
+        <span class="loading-text">
+
+            Chargement des données...
+
+        </span>
+
+
     </div>
 
-    <div class="info">
-        <h1 id="name">Haiti</h1>
 
-        <p><strong>Name :      </strong> <span id="countryName">Haiti</span></p>
-        <p><strong>Capital :   </strong> <span id="capital"></span>Port-au-Prince</p>
-        <p><strong>Population :</strong> <span id="population">11 402 533</span></p>
-        <p><strong>Region :    </strong> <span id="region">Americas</span></p>
-        <p><strong>Currency :  </strong> <span id="currency">Haitian Gourdes(HTG)</span></p>
-        <p><strong>Languages : </strong> <span id="languages">French, Haitian Creole</span></p>
-    </div>
 
-</div>
 
-<script src="script.js"></script>
+
+    <!-- Message API -->
+
+
+    <p id="api-message"
+       class="api-message"
+       role="alert"
+       hidden>
+
+    </p>
+
+
+
+
+
+    <!-- RESULTAT -->
+
+
+    <section id="resultat" class="result-section">
+        <h2 class="result-section-title">
+            Résultat de la recherche
+        </h2>
+
+        <article id="country-card"
+                 class="country-card"
+                 hidden>
+
+
+
+            <!-- DRAPEAU -->
+
+
+            <div class="card-flag">
+
+
+                <img
+                    id="flag-img"
+                    src="flag-placeholder.png"
+                    alt="l'image du drapeau du pays"
+                    width="320"
+                    height="220"
+                >
+
+
+            </div>
+
+
+
+
+
+            <!-- INFORMATIONS -->
+
+
+            <div class="card-body">
+
+                <p class="card-eyebrow">
+                    Pays
+                </p>
+
+
+
+                <h2 id="country-name" class="card-title"> Pays</h2>
+
+                <dl class="ledger">
+
+                    <div class="ledger-row">
+
+                        <dt>Capitale</dt>
+
+                        <dd id="country-capital"></dd>
+
+                    </div>
+
+
+                    <div class="ledger-row">
+
+                        <dt>Population</dt>
+
+                        <dd id="country-population"></dd>
+
+                    </div>
+
+
+
+
+                    <div class="ledger-row">
+
+                        <dt>Région</dt>
+
+                        <dd id="country-region"></dd>
+
+                    </div>
+
+
+
+
+                    <div class="ledger-row">
+
+                        <dt>Monnaie</dt>
+
+                        <dd id="country-currency"></dd>
+
+                    </div>
+
+
+
+
+                    <div class="ledger-row">
+
+                        <dt>Langues</dt>
+
+                        <dd id="country-languages"></dd>
+
+                    </div>
+
+
+
+                </dl>
+
+
+
+
+            </div>
+
+
+
+        </article>
+
+
+
+
+    </section>
+
+
+
+
+</main>
+
+
+
+
+
+<!-- ================= FOOTER ================= -->
+
+
+<footer class="site-footer">
+
+
+    <p>
+
+        Données fournies par
+
+        <a href="https://restcountries.com"
+           target="_blank"
+           rel="noopener noreferrer">
+
+            REST Countries API
+
+        </a>
+
+    </p>
+
+
+
+</footer>
+
+
+
+
+
+<!-- JavaScript -->
+
+
+<script src="app.js"></script>
+
 
 
 </body>
+
 </html>
