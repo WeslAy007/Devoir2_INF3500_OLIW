@@ -1,295 +1,167 @@
+/* Réinitialisation */
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
 }
-:root{
-    --primary:#2563eb;
-    --primary-dark:#1d4ed8;
-    --dark:#fbfcff;
-    --light:#f8fafc;
-    --white:#ffffff;
-    --gray:#f9fafc;
-    --border:#e2e8f0;
-    --danger:#dc2626;
-    --radius:18px;
-    --shadow:0 10px 30px rgba(0,0,0,.12);
-}
+
 body{
-    font-family:"Inter",sans-serif;
-    background:#f1f5f9;
-    color:#1e293b;
+    background-image:url("https://images.unsplash.com/photo-1504608524841-42fe6f032b4b");
+    background-size:cover;
+    background-position:center;
     min-height:100vh;
+    color:#fff;
 }
-.site-header{
 
-    background:linear-gradient(135deg,#2563eb,#0f172a);
-    padding:25px 50px;
-    color:white;
-
-}
-.header-inner{
+/* Header */
+header{
     display:flex;
-    align-items:center;
     justify-content:space-between;
-    gap:30px;
-
-}
-.site-title{
-    font-family:"Fraunces",serif;
-    font-size:2.2rem;
-    white-space:nowrap;
-}
-.site-nav{
-
-    display:flex;
-    gap:25px;
     align-items:center;
+    padding:20px 60px;
+    background:rgba(255,255,255,.15);
+    backdrop-filter:blur(10px);
 }
-.site-nav a{
-   color:white;
+
+header h1{
+    font-size:2rem;
+}
+
+/* Navigation */
+nav{
+    display:flex;
+    gap:20px;
+}
+
+nav a{
     text-decoration:none;
-    font-weight:600;
+    color:white;
+    font-weight:bold;
+    padding:10px 18px;
+    border-radius:25px;
     transition:.3s;
 }
-.site-nav a:hover{
-   color:#bfdbfe;
 
+nav a:hover{
+    background:white;
+    color:#2193b0;
 }
-.header-search{
 
+/* Recherche */
+.search{
     display:flex;
-    align-items:center;
+    justify-content:center;
     gap:10px;
-
+    margin:40px 0;
 }
 
-.header-search input{
-
-    width:230px;
-    padding:12px 18px;
+.search input{
+    width:280px;
+    padding:12px;
     border:none;
     border-radius:30px;
     outline:none;
-    font-size:15px;
 }
-.submit-btn{
+
+.search button{
+    padding:12px 25px;
     border:none;
-    background:white;
-    color:var(--primary);
-    padding:12px 20px;
     border-radius:30px;
-    font-weight:700;
+    background:#ff9800;
+    color:white;
     cursor:pointer;
     transition:.3s;
 }
-.submit-btn:hover{
-    background:#dbeafe;
-    transform:translateY(-2px);
+
+.search button:hover{
+    background:#e68900;
 }
 
-main{
-
-    max-width:1100px;
-    margin:50px auto;
-    padding:0 20px;
-
-}
-.loading{
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:15px;
-    margin:30px;
-
-}
-
-.spinner{
-
-    width:30px;
-    height:30px;
-    border:4px solid #ddd;
-    border-top-color:var(--primary);
-    border-radius:50%;
-    animation:rotation .8s linear infinite;
-}
-
-@keyframes rotation{
-
-    from{
-        transform:rotate(0deg);
-    }
-    to{
-        transform:rotate(360deg);
-    }
-}
-
-.error-message,
-.api-message{
-
-    color:var(--danger);
-    font-weight:600;
-    margin-top:10px;
-
-}
-.result-section{
-
-    margin-top:40px;
-}
-.country-card{
-
-    display:grid;
-    grid-template-columns:350px 1fr;
-    background:white;
-    border-radius:var(--radius);
-    overflow:hidden;
-    box-shadow:var(--shadow);
-}
-
-.card-flag{
-    background:#eff6ff;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+/* Carte météo */
+.weather-card{
+    width:360px;
+    margin:auto;
+    background:rgba(255,255,255,.2);
+    backdrop-filter:blur(15px);
+    border-radius:20px;
     padding:30px;
-
-}
-.card-flag img{
-
-    width:100%;
-    max-width:300px;
-    border-radius:12px;
-    box-shadow:0 8px 20px rgba(0,0,0,.15);
-
-}
-.card-body{
-
-    padding:40px;
-
+    text-align:center;
+    box-shadow:0 8px 20px rgba(0,0,0,.25);
 }
 
-
-.card-eyebrow{
-
-    color:var(--primary);
-    font-size:.9rem;
-    font-weight:700;
-    text-transform:uppercase;
-    letter-spacing:2px;
-
+.temperature{
+    font-size:4rem;
+    font-weight:bold;
+    margin:20px 0;
 }
 
-
-.card-title{
-
-    font-family:"Fraunces",serif;
-    font-size:2.3rem;
-    margin:15px 0 30px;
-
-}
-
-.ledger{
-
-    display:flex;
-    flex-direction:column;
-    gap:15px;
-
-}
-
-
-.ledger-row{
-
+.details{
     display:flex;
     justify-content:space-between;
-    padding:15px 0;
-    border-bottom:1px solid var(--border);
-
+    gap:15px;
+    margin-top:20px;
 }
 
-
-.ledger-row dt{
-
-    font-weight:700;
-
+.details div{
+    flex:1;
+    background:rgba(255,255,255,.15);
+    padding:15px;
+    border-radius:15px;
 }
-
-
-.ledger-row dd{
-
-    color:var(--gray);
-
-}
-
-.site-footer{
-
-    background:var(--dark);
-    color:white;
-    padding:25px;
+/* Footer */
+footer{
+    width:100%;
+    margin-top:50px;
+    padding:20px;
     text-align:center;
-    margin-top:70px;
-
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(10px);
+    color:white;
+    font-size:15px;
+    border-top:1px solid rgba(255,255,255,0.2);
+    box-shadow:0 -3px 10px rgba(0,0,0,0.15);
 }
 
-.site-footer a{
+footer p{
+    margin:0;
+    letter-spacing:0.5px;
+}
 
-    color:#60a5fa;
+footer a{
+    color:#fff;
     text-decoration:none;
-
+    font-weight:bold;
+    transition:0.3s;
 }
-@media(max-width:1000px){
 
+footer a:hover{
+    color:#ffd54f;
+}
+/* Responsive */
+@media(max-width:768px){
 
-    .header-inner{
-
+    header{
         flex-direction:column;
-
-    }
-
-
-    .header-search{
-        width:100%;
-        justify-content:center;
-    }
-    .country-card{
-
-        grid-template-columns:1fr;
-    }
-}
-@media(max-width:600px){
-   .site-header{
+        gap:20px;
         padding:20px;
     }
-    .site-title{
-   font-size:1.8rem;
 
-    }
-    .site-nav{
-
+    nav{
         flex-wrap:wrap;
         justify-content:center;
-
     }
-    .header-search{
 
+    .details{
         flex-direction:column;
     }
-    .header-search input{
 
-        width:100%;
-    }
-    .submit-btn{
-        width:100%;
-    }
-    .card-body{
-        padding:25px;
-    }
-
-    .ledger-row{
-
+    .search{
         flex-direction:column;
-        gap:5px;
-
+        align-items:center;
     }
 
+    .search input{
+        width:90%;
+    }
 }

@@ -1,121 +1,149 @@
-// Sélection des éléments HTML
-const form = document.getElementById("country-form");
-const input = document.getElementById("country-input");
-const API_KEY = "rc_live_61192c8f8c6d4bb69f716668bf5558ef";
+const button = document.getElementById("searchBtn");
 
-const loading = document.getElementById("loading");
-const apiMessage = document.getElementById("api-message");
-const errorMessage = document.getElementById("country-error");
+button.addEventListener(
+    "click",
+    getWeather
+);
 
-const card = document.getElementById("country-card");
 
-const flagImg = document.getElementById("flag-img");
-const countryName = document.getElementById("country-name");
-const countryCapital = document.getElementById("country-capital");
-const countryPopulation = document.getElementById("country-population");
-const countryRegion = document.getElementById("country-region");
-const countryCurrency = document.getElementById("country-currency");
-const countryLanguages = document.getElementById("country-languages");
 
-// Événement du formulaire
-form.addEventListener("submit", function (e) {
-    e.preventDefault();
+async function getWeather(){
 
-    const country = input.value.trim();
 
-    if (country === "") {
-        showInputError("Veuillez entrer un nom de pays.");
+    const city =
+    document.getElementById("cityInput").value;
+
+
+
+    if(city===""){
+
+        alert("Entrer une ville");
+
         return;
     }
 
-    hideInputError();
-    searchCountry(country);
-});
 
-// Recherche du pays
-async function searchCountry(country) {
 
-    loading.hidden = false;
-    apiMessage.hidden = true;
-    card.hidden = true;
+    try{
 
-    try {
 
-        const response = await fetch(
-            `https://restcountries.com/v3.1/name/${encodeURIComponent(country)}?fullText=true`
+        // Recherche coordonnées ville
+
+        const geoResponse = await fetch(
+
+        `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1`
+
         );
 
-        if (!response.ok) {
-            throw new Error("Pays introuvable.");
-        }
 
-        const data = await response.json();
 
-        displayCountry(data[0]);
+        const geoData = await geoResponse.json();
 
-    } catch (error) {
 
-        apiMessage.hidden = false;
-        apiMessage.textContent = error.message;
 
-    } finally {
+        const place = geoData.results[0];
 
-        loading.hidden = true;
+
+
+        const latitude = place.latitude;
+
+        const longitude = place.longitude;
+
+
+
+        // Recherche météo
+
+
+        const weatherResponse = await fetch(
+
+        `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`
+
+        );
+
+
+
+        const weatherData =
+        await weatherResponse.json();
+
+
+
+        const weather =
+        weatherData.current_weather;
+
+
+
+        afficherMeteo(place, weather);
+
+
 
     }
 
-}
+    catch(error){
 
-// Affichage des informations
-function displayCountry(country) {
+        alert("Ville introuvable");
 
-    flagImg.src = country.flags.svg;
-    flagImg.alt = `Drapeau de ${country.name.common}`;
+        console.log(error);
 
-    countryName.textContent = country.name.official;
-
-    countryCapital.textContent =
-        country.capital ? country.capital[0] : "Non disponible";
-
-    countryPopulation.textContent =
-        country.population.toLocaleString("fr-FR");
-
-    countryRegion.textContent =
-        `${country.region} ${country.subregion ? "- " + country.subregion : ""}`;
-
-    // Monnaie
-    if (country.currencies) {
-        const currencies = Object.values(country.currencies)
-            .map(currency => `${currency.name} (${currency.symbol || ""})`)
-            .join(", ");
-
-        countryCurrency.textContent = currencies;
-    } else {
-        countryCurrency.textContent = "Non disponible";
     }
 
-    // Langues
-    if (country.languages) {
-        countryLanguages.textContent =
-            Object.values(country.languages).join(", ");
-    } else {
-        countryLanguages.textContent = "Non disponible";
-    }
-
-    card.hidden = false;
-}
-
-// Message d'erreur
-function showInputError(message) {
-
-    errorMessage.hidden = false;
-    errorMessage.textContent = message;
 
 }
 
-function hideInputError() {
 
-    errorMessage.hidden = true;
-    errorMessage.textContent = "";
+
+
+
+function afficherMeteo(place, weather){
+
+
+
+document.getElementById("location").innerHTML =
+
+`
+📍 ${place.name}, ${place.country}
+`;
+
+
+
+document.getElementById("temp").innerHTML =
+
+weather.temperature + "°C";
+
+
+
+document.getElementById("wind").innerHTML =
+
+weather.windspeed + " km/h";
+
+
+
+document.getElementById("status").innerHTML =
+
+getWeatherText(weather.weathercode);
+
+
+
+}
+
+
+
+
+function getWeatherText(code){
+
+
+    if(code===0)
+        return "☀ Ensoleillé";
+
+
+    if(code<50)
+        return "🌤 Nuageux";
+
+
+    if(code<70)
+        return "🌧 Pluvieux";
+
+
+    return "⛈ Orage";
+
 
 }

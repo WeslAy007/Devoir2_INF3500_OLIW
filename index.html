@@ -2,316 +2,107 @@
 <html lang="fr">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Atlas Mondial Interactif</title>
-
-    <meta name="description" content="Recherchez un pays et consultez sa fiche géographique en temps réel.">
-
-
-    <!-- Google Fonts -->
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
-
-    <!-- CSS -->
+    <title>Weather Dashboard</title>
 
     <link rel="stylesheet" href="style.css">
-
 </head>
 
 
 <body>
 
 
-<!-- ================= HEADER ================= -->
+<header>
 
+    <h1>☁ Weather Dashboard</h1>
 
-<header class="site-header">
+    <nav>
 
+    <a href="#dashboard">Dashboard</a>
+    <a href="#forecast">Forecast</a>
+    <a href="#map">Map</a>
+    <a href="#alerts">Alerts</a>
 
-    <div class="header-inner">
-
-
-        <h1 class="site-title">
-            🌍 Atlas Mondial
-        </h1>
-
-
-
-        <nav class="site-nav" aria-label="Navigation principale">
-
-            <a href="#">Home</a>
-
-            <a href="#">Regions</a>
-
-            <a href="#">About</a>
-
-        </nav>
-
-
-
-
-        <!-- FORMULAIRE RECHERCHE -->
-
-        <form id="country-form" class="header-search" novalidate>
-
-
-            <input
-                type="text"
-                id="country-input"
-                name="country"
-                placeholder="Nom du pays..."
-                autocomplete="off"
-                aria-describedby="country-error"
-            >
-
-
-
-            <button type="submit" class="submit-btn">
-
-                🔍 Rechercher
-
-            </button>
-
-
-
-        </form>
-
-
-
-    </div>
-
-
-
-    <p id="country-error"
-       class="error-message"
-       role="alert"
-       hidden>
-    </p>
-
+</nav>
 
 
 </header>
 
 
+<section class="search">
+    <h2>Rechercher de la météo</h2>
+     
+    <div class="search-icon">
+        <input 
+              id="cityInput"
+              type="text"
+             placeholder="Entrer une ville...">
+     </div>
+        
+
+         <button id="searchBtn">
+              Rechercher
+        </button>
+
+
+</section>
 
 
 
-<!-- ================= MAIN ================= -->
+<main class="weather-card">
 
 
-<main>
+    <h2 id="location">
+        Ville, Pays
+    </h2>
 
 
+    <p id="condition">
+        Météo actuelle
+    </p>
 
 
-    <!-- Chargement -->
+    <div class="temperature">
 
-
-    <div id="loading"
-         class="loading"
-         role="status"
-         aria-live="polite"
-         hidden>
-
-
-        <span class="spinner"></span>
-
-
-        <span class="loading-text">
-
-            Chargement des données...
-
+        <span id="temp">
+            --°C
         </span>
-
 
     </div>
 
 
 
+    <div class="details">
 
 
-    <!-- Message API -->
+        <div>
+            🌬 Vent
+            <strong id="wind">
+                -- km/h
+            </strong>
+        </div>
 
 
-    <p id="api-message"
-       class="api-message"
-       role="alert"
-       hidden>
 
-    </p>
+        <div>
+            🌤 Etat
+            <strong id="status">
+                --
+            </strong>
+        </div>
 
 
-
-
-
-    <!-- RESULTAT -->
-
-
-    <section id="resultat" class="result-section">
-        <h2 class="result-section-title">
-            Résultat de la recherche
-        </h2>
-
-        <article id="country-card"
-                 class="country-card"
-                 hidden>
-
-
-
-            <!-- DRAPEAU -->
-
-
-            <div class="card-flag">
-
-
-                <img
-                    id="flag-img"
-                    src="flag-placeholder.png"
-                    alt="l'image du drapeau du pays"
-                    width="320"
-                    height="220"
-                >
-
-
-            </div>
-
-
-
-
-
-            <!-- INFORMATIONS -->
-
-
-            <div class="card-body">
-
-                <p class="card-eyebrow">
-                    Pays
-                </p>
-
-
-
-                <h2 id="country-name" class="card-title"> Pays</h2>
-
-                <dl class="ledger">
-
-                    <div class="ledger-row">
-
-                        <dt>Capitale</dt>
-
-                        <dd id="country-capital"></dd>
-
-                    </div>
-
-
-                    <div class="ledger-row">
-
-                        <dt>Population</dt>
-
-                        <dd id="country-population"></dd>
-
-                    </div>
-
-
-
-
-                    <div class="ledger-row">
-
-                        <dt>Région</dt>
-
-                        <dd id="country-region"></dd>
-
-                    </div>
-
-
-
-
-                    <div class="ledger-row">
-
-                        <dt>Monnaie</dt>
-
-                        <dd id="country-currency"></dd>
-
-                    </div>
-
-
-
-
-                    <div class="ledger-row">
-
-                        <dt>Langues</dt>
-
-                        <dd id="country-languages"></dd>
-
-                    </div>
-
-
-
-                </dl>
-
-
-
-
-            </div>
-
-
-
-        </article>
-
-
-
-
-    </section>
-
-
+    </div>
 
 
 </main>
 
-
-
-
-
-<!-- ================= FOOTER ================= -->
-
-
-<footer class="site-footer">
-
-
-    <p>
-
-        Données fournies par
-
-        <a href="https://restcountries.com"
-           target="_blank"
-           rel="noopener noreferrer">
-
-            REST Countries API
-
-        </a>
-
-    </p>
-
-
-
+<footer>
+    <p>&copy; 2026 Weather Dashboard. Tous droits réservés.</p>
 </footer>
-
-
-
-
-
-<!-- JavaScript -->
-
-
 <script src="app.js"></script>
-
-
 
 </body>
 
